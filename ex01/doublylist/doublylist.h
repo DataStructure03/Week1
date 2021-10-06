@@ -10,8 +10,8 @@ typedef struct DoublyListNodeType
 
 typedef struct DoublyListType
 {
-	int	currentElementCount;		// ���� ����� ������ ����
-	DoublyListNode	headerNode;		// ��� ���(Header Node)
+	int	currentElementCount;	
+	DoublyListNode	headerNode;
 } DoublyList;
 
 DoublyList* createDoublyList();
