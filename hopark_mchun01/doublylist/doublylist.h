@@ -11,17 +11,17 @@ typedef struct DoublyListNodeType
 typedef struct DoublyListType
 {
 	int	currentElementCount;		// ���� ����� ������ ����
-	DoublyListNode	headerNode;		// ��� ���(Header Node)
+	DoublyListNode	*headerNode;		// ��� ���(Header Node)
 } DoublyList;
 
 DoublyList* createDoublyList();
-void deleteDoublyList(DoublyList* pList);
+DoublyListNode* getDLElement(DoublyList* pList, int position);
 int addDLElement(DoublyList* pList, int position, DoublyListNode element);
 int removeDLElement(DoublyList* pList, int position);
+void displayDoublyList(DoublyList* pList);
 void clearDoublyList(DoublyList* pList);
 int getDoublyListLength(DoublyList* pList);
-DoublyListNode* getDLElement(DoublyList* pList, int position);
-void displayDoublyList(DoublyList* pList);
+void deleteDoublyList(DoublyList* pList);
 
 #endif
 
@@ -30,5 +30,5 @@ void displayDoublyList(DoublyList* pList);
 
 #define TRUE		1
 #define FALSE		0
-
+#define	ERROR		-1
 #endif

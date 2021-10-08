@@ -1,0 +1,10 @@
+dummy >>>>>> 
+
+발표 : dummy : head 와 tail ????????
+
+시간복잡도 공간복잡도
+
+과제 polynomial
+	reverse_linkedlist 
+
+순환 연결리스트 >>

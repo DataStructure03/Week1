@@ -1,9 +1,9 @@
-NAME = polynomial
+NAME = doublylist
 
 CC = gcc
 CFLAGS = 
 # CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-CFLAGS = -g3 -fsanitize=address
+# CFLAGS = -g3 -fsanitize=address
 RM = rm
 RMFLAGS = -f
 
@@ -13,11 +13,12 @@ OBJ_DIR = obj
 vpath %.c $(SRC_DIR)
 
 INCLUDE = $(addprefix $(INC_DIR)/, \
-	polynomial.h \
+	doublylist.h \
 )
 
 SRC = $(addprefix $(SRC_DIR)/, \
-	polynomial.c \
+	doublylist.c \
+	doublylist_test.c \
 )
 
 
@@ -32,7 +33,7 @@ fclean : clean
 re : fclean all
 
 test : $(NAME)
-	./polynomial
+	./doublylist
 
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))

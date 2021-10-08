@@ -1,4 +1,4 @@
-#include "linkedlist.h"
+#include "polynomial.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -12,7 +12,8 @@ LinkedList* createLinkedList(void)
 	list->currentElementCount = 0;
 	if (!(dummy = malloc(sizeof(ListNode))))
 		return (NULL);
-	dummy->data = 0;
+	dummy->degree = 0;
+	dummy->coefficient = 0;
 	dummy->pLink = NULL;
 	list->headerNode = dummy;
 	return (list);
@@ -39,13 +40,12 @@ int addLLElement(LinkedList* pList, int position, ListNode element)
 
 	if (!pList)
 		return (ERROR);
-	if (position < 0)
+	if (pList->currentElementCount < position || position < 0)
 		return (ERROR);
-	if (position > pList->currentElementCount)
-		position = pList->currentElementCount;
 	if (!(new = malloc(sizeof(ListNode))))
 		return (ERROR);
-	new->data = element.data;
+	new->degree = element.degree;
+	new->coefficient = element.coefficient;
 	if (position == 0)
 		prev = pList->headerNode;
 	else
@@ -118,18 +118,69 @@ void deleteLinkedList(LinkedList* pList)
 	free(pList);
 }
 
-void displayLinkedList(LinkedList* pList)
+void displayPolynomial(LinkedList* pList)
 {
 	ListNode	*temp;
 
 	if (!pList)
 		return ;
+	if (pList->currentElementCount == 0)
+		printf("0");
 	temp = pList->headerNode->pLink;
-	printf("currentElementCount : %d\n",pList->currentElementCount);
 	while (temp)
 	{
-		printf("[%3d] > ", temp->data);
+		if (!temp->degree)
+			printf("(%d)", temp->coefficient);
+		else
+		{
+			if (temp->coefficient != 1)
+				printf("(%dx^%d) ", temp->coefficient, temp->degree);
+			else
+				printf("(x^%d) ", temp->degree);
+		}
+		if (temp->pLink)
+			printf("+ ");
 		temp = temp->pLink;
 	}
-	printf("[END]\n");
+	printf("\n");
 }
+
+LinkedList	*add_polynomial(LinkedList *A, LinkedList *B)
+{
+	int i = 0;
+	LinkedList	*res;
+	ListNode	temp;
+	ListNode	*curr;
+	ListNode	*nodeA = A->headerNode->pLink;
+	ListNode	*nodeB = B->headerNode->pLink;
+
+	res = createLinkedList();
+	while (nodeA && nodeB)
+	{
+		if (nodeA->degree == nodeB->degree)
+		{
+			temp.degree = nodeA->degree;
+			temp.coefficient = nodeA->coefficient + nodeB->coefficient;
+			addLLElement(res, i++, temp);
+			nodeA = nodeA->pLink;
+			nodeB = nodeB->pLink;
+		}
+		else if (nodeA->degree > nodeB->degree)
+		{
+			addLLElement(res, i++, (*nodeA));
+			nodeA = nodeA->pLink;
+		}
+		else
+		{
+			addLLElement(res, i++, (*nodeB));
+			nodeB = nodeB->pLink;
+		}
+	}
+	curr = (nodeA) ? (nodeA) : (nodeB);
+	while (curr)
+	{
+		addLLElement(res, i++, *curr);
+		curr = curr->pLink;
+	}
+	return (res);
+} 

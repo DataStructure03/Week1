@@ -1,9 +1,8 @@
-NAME = arraylist
+NAME = reverse
 
 CC = gcc
-CFLAGS = 
 # CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-# CFLAGS = i
+# CFLAGS = -g3 -fsanitize=address
 RM = rm
 RMFLAGS = -f
 
@@ -13,12 +12,13 @@ OBJ_DIR = obj
 vpath %.c $(SRC_DIR)
 
 INCLUDE = $(addprefix $(INC_DIR)/, \
-	arraylist.h \
+	../../hopark_mchun00/linkedlist/linkedlist.h \
 )
 
 SRC = $(addprefix $(SRC_DIR)/, \
-	arraylist.c \
-	arrayTest.c \
+	../../hopark_mchun00/linkedlist/linkedlist.c \
+	reverse.c \
+	reverse_test.c \
 )
 
 
@@ -33,7 +33,7 @@ fclean : clean
 re : fclean all
 
 test : $(NAME)
-	./arraylist
+	./reverse
 
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
