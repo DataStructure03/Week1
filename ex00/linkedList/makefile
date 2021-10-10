@@ -1,6 +1,7 @@
-NAME = reverse
+NAME = linkedlist
 
 CC = gcc
+# CFLAGS = 
 # CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 # CFLAGS = -g3 -fsanitize=address
 RM = rm
@@ -9,18 +10,17 @@ RMFLAGS = -f
 SRC_DIR = .
 INC_DIR = .
 OBJ_DIR = obj
-vpath %.c $(SRC_DIR)
 
 INCLUDE = $(addprefix $(INC_DIR)/, \
-	../../hopark_mchun00/linkedlist/linkedlist.h \
+	linkedlist.h \
 )
 
 SRC = $(addprefix $(SRC_DIR)/, \
-	../../hopark_mchun00/linkedlist/linkedlist.c \
-	reverse.c \
-	reverse_test.c \
+	linkedlist.c \
+	linkedTest.c \
 )
 
+OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
 
 all : $(NAME)
 
@@ -33,17 +33,12 @@ fclean : clean
 re : fclean all
 
 test : $(NAME)
-	./reverse
-
-
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
-$(OBJ_DIR ) :
+	./linkedlist
+$(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o : %.c $(INCLUDE) | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
 
-$(NAME) : $(INCLUDE) $(OBJ)
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $(NAME) $(OBJ)
+$(NAME) : $(INCLUDES) $(OBJ)
+	@$(CC) $(CFLAGS) -I $(INC_DIR) -o $(NAME) $(OBJ) $(CLIBR)
 
 .PHONY: all clean fclean re test\

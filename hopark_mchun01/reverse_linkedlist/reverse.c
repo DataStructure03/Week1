@@ -1,5 +1,4 @@
 # include "../../hopark_mchun00/linkedlist/linkedlist.h"
-// #include "linkedlist.h"
 #include <stddef.h>
 #include <unistd.h>
 
@@ -28,3 +27,26 @@ void	reverseLinkedList(LinkedList *plist)
 	to_be_tail->pLink = NULL;
 	head->pLink = prev;
 }
+
+
+
+/*
+void	reverseLinkedList(LinkedList *plist)
+{
+	ListNode *p;
+	ListNode *q = NULL;
+	ListNode *r = NULL;
+
+	p = pList->headerNode;
+
+	while (p! = NULL)
+	{
+		r = q;
+		q = p;
+		p = p->pLink;
+		q->pLink = r;
+	}
+	plist->headerNode = q;
+}
+
+*/

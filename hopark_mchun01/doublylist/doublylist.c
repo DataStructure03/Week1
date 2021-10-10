@@ -35,7 +35,7 @@ DoublyListNode* getDLElement(DoublyList* pList, int position)
 
 int addDLElement(DoublyList* pList, int position, DoublyListNode element)
 {
-	DoublyListNode	*prev;
+	DoublyListNode	*curr;
 	DoublyListNode	*new;
 
 	if (!pList)
@@ -47,15 +47,15 @@ int addDLElement(DoublyList* pList, int position, DoublyListNode element)
 	if (!(new = malloc(sizeof(DoublyListNode))))
 		return (ERROR);
 	if (position == 0)
-		prev = pList->headerNode;
+		curr = pList->headerNode;
 	else
-		prev = getDLElement(pList, position - 1);
+		curr = getDLElement(pList, position - 1);
 	new->data = element.data;
-	new->pRLink = prev->pRLink;
-	if (prev->pRLink)
-		prev->pRLink->pLLink = new;
-	prev->pRLink = new;
-	new->pLLink = prev;
+	new->pRLink = curr->pRLink;
+	if (curr->pRLink)
+		curr->pRLink->pLLink = new;
+	curr->pRLink = new;
+	new->pLLink = curr;
 	pList->currentElementCount++;
 	return (TRUE);
 }
@@ -64,19 +64,19 @@ int removeDLElement(DoublyList* pList, int position)
 {
 
 	DoublyListNode	*prev;
-	DoublyListNode	*now;
+	DoublyListNode	*curr;
 
 	if (!pList)
 		return (ERROR);
 	if (pList->currentElementCount <= position || position < 0)
 		return (ERROR);
-	now = getDLElement(pList, position);
-	prev = now->pLLink;
-	prev->pRLink = now->pRLink;
-	if (now->pRLink)
-		now->pRLink->pLLink = prev;
+	curr = getDLElement(pList, position);
+	prev = curr->pLLink;
+	prev->pRLink = curr->pRLink;
+	if (curr->pRLink)
+		curr->pRLink->pLLink = prev;
 	pList->currentElementCount--;
-	free(now);
+	free(curr);
 	return (TRUE);
 }
 
